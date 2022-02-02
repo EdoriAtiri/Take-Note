@@ -1,9 +1,35 @@
 import react, { useState } from 'react';
 import { IoAddCircle } from 'react-icons/io5';
+import Note from './Note';
 
 function CreateNote() {
-  const [notes, setNotes] = useState({ title: '', content: '' });
-  let state = { ...notes };
+  let date = new Date();
+  let months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let [day, month, year] = [
+    date.getDate(),
+    months[date.getMonth() + 1],
+    date.getFullYear(),
+  ];
+
+  const [todaysDate, getTodaysDate] = useState(`${day} ${month}, ${year}`);
+  const [notes, setNotes] = useState({
+    title: '',
+    content: '',
+    date: todaysDate,
+  });
 
   function handleNoteChange(e) {
     // const { name, value } = e.target;
@@ -29,11 +55,11 @@ function CreateNote() {
   }
 
   return (
-    <section className="pt-8 px-8 ">
+    <section className="pt-8 px-8">
       <form action="" className="flex flex-col gap-4" onSubmit={addNote}>
         <label htmlFor="title"></label>
         <input
-          className="border-b-2 pb-4 focus:outline-none focus:border-purple-700 focus:placeholder:text-purple-700 transition-colors delay-200 ease-in "
+          className="border-b-2 py-2 px-6 focus:outline-none focus:border-purple-700 focus:placeholder:text-purple-700 transition-colors delay-200 ease-in "
           id="title"
           name="title"
           type="text"
@@ -44,7 +70,7 @@ function CreateNote() {
 
         <label htmlFor="content"></label>
         <textarea
-          className="border-b-2 pb-4 focus:outline-none focus:border-purple-700  focus:placeholder:text-purple-700 transition-colors delay-200 ease-in"
+          className="border-b-2 py-2 px-6 focus:outline-none focus:border-purple-700  focus:placeholder:text-purple-700 transition-colors delay-200 ease-in"
           id="content"
           name="content"
           cols="30"
@@ -61,6 +87,7 @@ function CreateNote() {
           <IoAddCircle className="h-10 w-10 text-purple-700 active:text-purple-800 ease-linear transition-all duration-150" />
         </button>
       </form>
+      <Note />
     </section>
   );
 }
