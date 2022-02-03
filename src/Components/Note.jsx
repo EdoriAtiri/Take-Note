@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { IoArrowForward } from 'react-icons/io5';
+import { IoArrowForward, IoTrashBin } from 'react-icons/io5';
 
-function Note(props) {
+function Note({ todaysDate, content, title, deleteNote, id }) {
   const [isHover, setHover] = useState(false);
 
   function onNoteHover(e) {
@@ -18,39 +18,52 @@ function Note(props) {
     <div
       onMouseOver={onNoteHover}
       onMouseOut={onNoteHover}
-      className={`${'flex flex-col w-60 h-72 rounded-md shadow-2xl p-6 justify-between transition-all duration-150 '} ${
+      className={`${'relative flex flex-col w-60 h-72 rounded-md shadow-2xl p-6 gap-4 transition-all duration-150 '} ${
         isHover ? 'bg-purple-500 scale-110 text-white' : 'bg-white scale-100'
       }`}
     >
-      <div className="heading">
+      <div className="heading h-1/3">
         <h2
-          className={`${'text-2xl font-bold pb-4 border-b'}${
+          className={`${'text-2xl font-bold pb-4 border-b'} ${
             isHover ? 'border-purple-900' : 'border-gray-400'
           }`}
         >
-          Note Title
+          {title}
         </h2>
-        <p className="tracking-widest">{props.todaysDate}</p>
+        <p className="tracking-widest">{todaysDate}</p>
       </div>
 
-      <div className="content flex flex-col justify-between gap-2">
+      <div className="content flex flex-col justify-between h-2/3 gap-2">
         <p
-          className={`${
+          className={`  ease-in-out transform -translate-y-4 transition-all duration-200 delay-100 text-white ${
             isHover ? 'opacity-1 translate-y-0' : 'opacity-0'
-          }  ease-in-out transform -translate-y-4 transition-all duration-200 delay-100 text-white`}
+          }`}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci,
-          totam rem doloribus quo voluptatum iste.
+          {content}
         </p>
 
-        <a href="" className="">
-          <p className="flex items-center font-semibold text-lg gap-2 ">
-            See More <IoArrowForward />
-          </p>
-        </a>
+        <div className="flex justify-between items-center">
+          <a href="" className="">
+            <p className="flex items-center font-semibold text-lg gap-2 ">
+              See More <IoArrowForward />
+            </p>
+          </a>
+          <IoTrashBin
+            onClick={() => deleteNote(id)}
+            className={`${'cursor-pointer text-red-500'} ${
+              isHover && 'text-red-800'
+            }`}
+          />
+        </div>
       </div>
     </div>
   );
 }
+Note.defaultProps = {
+  title: 'Title',
+  content:
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, totam rem doloribus quo voluptatum iste.',
+  todaysDate: '3 February, 3022',
+};
 
 export default Note;
