@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { IoArrowForward, IoTrashBin } from 'react-icons/io5';
 
-function Note({ todaysDate, content, title, deleteNote, id }) {
+function Note({ todaysDate, content, title, deleteNote, id, color }) {
   const [isHover, setHover] = useState(false);
 
   function onNoteHover(e) {
     const mouseHover = e.type;
-
     if (mouseHover === 'mouseover') {
       setHover(true);
     } else if (mouseHover === 'mouseout') {
@@ -19,27 +18,27 @@ function Note({ todaysDate, content, title, deleteNote, id }) {
       onMouseOver={onNoteHover}
       onMouseOut={onNoteHover}
       className={`${'relative flex flex-col w-60 h-72 rounded-md shadow-2xl p-6 gap-4 transition-all duration-150 '} ${
-        isHover ? 'bg-purple-500 scale-110 text-white' : 'bg-white scale-100'
+        isHover ? `bg-${color}-500 scale-110 text-white` : 'bg-white scale-100'
       }`}
     >
       <div className="heading h-1/3">
         <h2
-          className={`${'text-2xl font-bold pb-4 border-b'} ${
-            isHover ? 'border-purple-900' : 'border-gray-400'
+          className={`${'uppercase text-xl font-bold pb-4 border-b'} ${
+            isHover ? `border-${color}-900` : 'border-gray-400'
           }`}
         >
-          {title}
+          {title.length <= 16 ? title : title.substring(0, 14) + '...'}
         </h2>
         <p className="tracking-widest">{todaysDate}</p>
       </div>
 
       <div className="content flex flex-col justify-between h-2/3 gap-2">
         <p
-          className={`  ease-in-out transform -translate-y-4 transition-all duration-200 delay-100 text-white ${
+          className={` ease-in-out transform -translate-y-4 transition-all duration-200 delay-100 text-white ${
             isHover ? 'opacity-1 translate-y-0' : 'opacity-0'
           }`}
         >
-          {content}
+          {content.length <= 110 ? content : content.substring(0, 110) + '...'}
         </p>
 
         <div className="flex justify-between items-center">

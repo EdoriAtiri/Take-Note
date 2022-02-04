@@ -5,7 +5,7 @@ import Main from './Components/Main';
 
 function App() {
   return (
-    <div className="bg-gray-100 grid auto-rows-auto gap-12">
+    <div className="bg-gray-100 grid auto-rows-auto gap-12 min-h-screen">
       <Header />
       <Main />
       <Footer />

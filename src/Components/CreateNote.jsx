@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { IoAddCircle } from 'react-icons/io5';
+import ColorPicker from './Shared/ColorPicker';
 
 function CreateNote({ addNotes }) {
+  const [noteTheme, setNoteTheme] = useState('');
   const [notes, setNotes] = useState({
     title: '',
     content: '',
+    theme: '',
   });
 
   function handleNoteChange(e) {
@@ -12,8 +15,28 @@ function CreateNote({ addNotes }) {
     const value = e.target.value;
     const name = e.target.name;
 
+    if (name === 'title') {
+      return {
+        title: value,
+        content: previousNote.content,
+        theme: setTheme(),
+      };
+    } else if (name === 'content') {
+      return {
+        title: previousNote.title,
+        content: value,
+        theme: setTheme(),
+      };
+    }
+
+    // setNotes((previousNote) => {
+    //   return { ...previousNote, [name]: value };
+    // });
+  }
+
+  function setTheme(theme) {
     setNotes((previousNote) => {
-      return { ...previousNote, [name]: value };
+      return { ...previousNote, [theme]: theme };
     });
   }
 
@@ -24,8 +47,9 @@ function CreateNote({ addNotes }) {
         className="flex flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
+          console.log(notes);
           addNotes(notes);
-          setNotes({ title: '', content: '' });
+          setNotes({ title: '', content: '', theme: '' });
         }}
       >
         <label htmlFor="title"></label>
@@ -50,13 +74,15 @@ function CreateNote({ addNotes }) {
           onChange={handleNoteChange}
           value={notes.content}
         ></textarea>
-
-        <button
-          type="submit"
-          className="outline-none focus:outline-purple-700 w-fit self-end"
-        >
-          <IoAddCircle className="h-10 w-10 text-purple-700 active:text-purple-800 ease-linear transition-all duration-150" />
-        </button>
+        <div className="flex justify-between gap-1">
+          <ColorPicker select={setTheme} />
+          <button
+            type="submit"
+            className="outline-none h-10 w-10 bg-purple-500   rounded-full focus:outline-purple-700"
+          >
+            <IoAddCircle className="h-10 w-10 text-white active:text-purple-800 ease-linear transition-all duration-150" />
+          </button>
+        </div>
       </form>
     </section>
   );
