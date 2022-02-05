@@ -3,8 +3,8 @@ import { useState } from 'react';
 function ColorPicker({ color, select }) {
   const [selected, setSelected] = useState('');
 
-  const listStyles = `relative w-10 h-10 text-center rounded-full border`;
-  const labelStyles = `absolute top-1/2 left-1/2 w-10 h-10 rounded-full transform -translate-x-1/2 -translate-y-1/2  cursor-pointer`;
+  const listStyles = `relative w-10 h-10 text-center rounded-full border transform checked:bg-white hover:scale-110 `;
+  const labelStyles = `absolute top-1/2 left-1/2 w-10 h-10 rounded-full transform -translate-x-1/2 -translate-y-1/2  cursor-pointer hover:scale-110 checked:scale-110 border`;
   function handleChange(e) {
     console.log(e.target.value);
     setSelected(e.target.value);

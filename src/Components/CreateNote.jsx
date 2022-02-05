@@ -3,11 +3,10 @@ import { IoAddCircle } from 'react-icons/io5';
 import ColorPicker from './Shared/ColorPicker';
 
 function CreateNote({ addNotes }) {
-  const [noteTheme, setNoteTheme] = useState('');
   const [notes, setNotes] = useState({
     title: '',
     content: '',
-    theme: '',
+    theme: 'purple',
   });
 
   function handleNoteChange(e) {
@@ -15,19 +14,21 @@ function CreateNote({ addNotes }) {
     const value = e.target.value;
     const name = e.target.name;
 
-    if (name === 'title') {
-      return {
-        title: value,
-        content: previousNote.content,
-        theme: setTheme(),
-      };
-    } else if (name === 'content') {
-      return {
-        title: previousNote.title,
-        content: value,
-        theme: setTheme(),
-      };
-    }
+    setNotes((previousNote) => {
+      if (name === 'title') {
+        return {
+          title: value,
+          content: previousNote.content,
+          theme: previousNote.theme,
+        };
+      } else if (name === 'content') {
+        return {
+          title: previousNote.title,
+          content: value,
+          theme: previousNote.theme,
+        };
+      }
+    });
 
     // setNotes((previousNote) => {
     //   return { ...previousNote, [name]: value };
@@ -36,7 +37,11 @@ function CreateNote({ addNotes }) {
 
   function setTheme(theme) {
     setNotes((previousNote) => {
-      return { ...previousNote, [theme]: theme };
+      return {
+        title: previousNote.title,
+        content: previousNote.content,
+        theme: theme,
+      };
     });
   }
 
