@@ -3,6 +3,9 @@ import { IoAddCircle } from 'react-icons/io5';
 import ColorPicker from './Shared/ColorPicker';
 
 function CreateNote({ addNotes }) {
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [errMessage, setErrMessage] = useState('');
+
   const [notes, setNotes] = useState({
     title: '',
     content: '',
@@ -54,12 +57,12 @@ function CreateNote({ addNotes }) {
           e.preventDefault();
           console.log(notes);
           addNotes(notes);
-          setNotes({ title: '', content: '', theme: '' });
+          setNotes({ title: '', content: '', theme: 'purple' });
         }}
       >
         <label htmlFor="title"></label>
         <input
-          className="border-b-2 py-2 px-6 focus:outline-none focus:border-purple-700 focus:placeholder:text-purple-700 transition-colors delay-200 ease-in rounded-md"
+          className="rounded-md border-b-2 py-2 px-6 transition-colors delay-200 ease-in focus:border-purple-700 focus:outline-none focus:placeholder:text-purple-700"
           id="title"
           name="title"
           type="text"
@@ -70,7 +73,7 @@ function CreateNote({ addNotes }) {
 
         <label htmlFor="content"></label>
         <textarea
-          className="border-b-2 py-2 px-6 focus:outline-none focus:border-purple-700  focus:placeholder:text-purple-700 transition-colors delay-200 ease-in rounded-md"
+          className="rounded-md border-b-2 py-2 px-6 transition-colors  delay-200 ease-in focus:border-purple-700 focus:outline-none focus:placeholder:text-purple-700"
           id="content"
           name="content"
           cols="30"
@@ -83,9 +86,13 @@ function CreateNote({ addNotes }) {
           <ColorPicker select={setTheme} />
           <button
             type="submit"
-            className="outline-none h-10 w-10 bg-purple-500   rounded-full focus:outline-purple-700"
+            disabled={btnDisabled}
+            className="active:scale-95 disabled:scale-100"
           >
-            <IoAddCircle className="h-10 w-10 text-white active:text-purple-800 ease-linear transition-all duration-150" />
+            <IoAddCircle
+              color={btnDisabled ? 'grey' : 'purple'}
+              className="h-10 w-10"
+            />
           </button>
         </div>
       </form>

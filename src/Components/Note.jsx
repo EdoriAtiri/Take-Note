@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { IoArrowForward, IoTrashBin } from 'react-icons/io5';
+import { useState } from "react";
+import { IoArrowForward, IoTrashBin } from "react-icons/io5";
 
 function Note({ todaysDate, content, title, deleteNote, id, color }) {
   const [isHover, setHover] = useState(false);
 
   function onNoteHover(e) {
     const mouseHover = e.type;
-    if (mouseHover === 'mouseover') {
+    if (mouseHover === "mouseover") {
       setHover(true);
-    } else if (mouseHover === 'mouseout') {
+    } else if (mouseHover === "mouseout") {
       setHover(false);
     }
   }
@@ -17,40 +17,40 @@ function Note({ todaysDate, content, title, deleteNote, id, color }) {
     <div
       onMouseOver={onNoteHover}
       onMouseOut={onNoteHover}
-      className={`${'relative flex flex-col w-60 h-72 rounded-md shadow-2xl p-6 gap-4 transition-all duration-150 '} ${
-        isHover ? `bg-${color}-500 scale-110 text-white` : 'bg-white scale-100'
+      className={`${"relative flex h-72 w-60 flex-col gap-4 rounded-md p-6 shadow-2xl transition-all duration-150 "} ${
+        isHover ? `bg-${color}-500 scale-110 text-white` : "scale-100 bg-white"
       }`}
     >
       <div className="heading h-1/3">
         <h2
-          className={`${'uppercase text-xl font-bold pb-4 border-b'} ${
-            isHover ? `border-${color}-900` : 'border-gray-400'
+          className={`${"border-b pb-4 text-xl font-bold uppercase"} ${
+            isHover ? `border-${color}-900` : "border-gray-400"
           }`}
         >
-          {title.length <= 16 ? title : title.substring(0, 14) + '...'}
+          {title.length <= 16 ? title : title.substring(0, 14) + "..."}
         </h2>
         <p className="tracking-widest">{todaysDate}</p>
       </div>
 
-      <div className="content flex flex-col justify-between h-2/3 gap-2">
+      <div className="content flex h-2/3 flex-col justify-between gap-2">
         <p
-          className={` ease-in-out transform -translate-y-4 transition-all duration-200 delay-100 text-white ${
-            isHover ? 'opacity-1 translate-y-0' : 'opacity-0'
+          className={` -translate-y-4 transform text-white transition-all delay-100 duration-200 ease-in-out ${
+            isHover ? "opacity-1 translate-y-0" : "opacity-0"
           }`}
         >
-          {content.length <= 110 ? content : content.substring(0, 110) + '...'}
+          {content.length <= 110 ? content : content.substring(0, 110) + "..."}
         </p>
 
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <a href="" className="">
-            <p className="flex items-center font-semibold text-lg gap-2 ">
+            <p className="flex items-center gap-2 text-lg font-semibold ">
               See More <IoArrowForward />
             </p>
           </a>
           <IoTrashBin
             onClick={() => deleteNote(id)}
-            className={`${'cursor-pointer text-red-500'} ${
-              isHover && 'text-red-800'
+            className={`${"cursor-pointer text-red-500"} ${
+              isHover && "text-red-800"
             }`}
           />
         </div>
@@ -59,10 +59,10 @@ function Note({ todaysDate, content, title, deleteNote, id, color }) {
   );
 }
 Note.defaultProps = {
-  title: 'Title',
+  title: "Title",
   content:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, totam rem doloribus quo voluptatum iste.',
-  todaysDate: '3 February, 3022',
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, totam rem doloribus quo voluptatum iste.",
+  todaysDate: "3 February, 3022",
 };
 
 export default Note;
