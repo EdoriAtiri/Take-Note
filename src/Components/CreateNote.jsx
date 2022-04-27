@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { IoAddCircle } from 'react-icons/io5';
-import ColorPicker from './Shared/ColorPicker';
+import { useState } from 'react'
+import { IoAddCircle } from 'react-icons/io5'
+import ColorPicker from './Shared/ColorPicker'
 
 function CreateNote({ addNotes }) {
-  const [btnDisabled, setBtnDisabled] = useState(true);
-  const [errMessage, setErrMessage] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState(false)
+  const [errMessage, setErrMessage] = useState('')
 
   const [notes, setNotes] = useState({
     title: '',
     content: '',
     theme: 'purple',
-  });
+  })
 
   function handleNoteChange(e) {
     // const { name, value } = e.target;
-    const value = e.target.value;
-    const name = e.target.name;
+    const value = e.target.value
+    const name = e.target.name
 
     setNotes((previousNote) => {
       if (name === 'title') {
@@ -23,15 +23,15 @@ function CreateNote({ addNotes }) {
           title: value,
           content: previousNote.content,
           theme: previousNote.theme,
-        };
+        }
       } else if (name === 'content') {
         return {
           title: previousNote.title,
           content: value,
           theme: previousNote.theme,
-        };
+        }
       }
-    });
+    })
 
     // setNotes((previousNote) => {
     //   return { ...previousNote, [name]: value };
@@ -44,8 +44,8 @@ function CreateNote({ addNotes }) {
         title: previousNote.title,
         content: previousNote.content,
         theme: theme,
-      };
-    });
+      }
+    })
   }
 
   return (
@@ -54,10 +54,10 @@ function CreateNote({ addNotes }) {
         action=""
         className="flex flex-col gap-4"
         onSubmit={(e) => {
-          e.preventDefault();
-          console.log(notes);
-          addNotes(notes);
-          setNotes({ title: '', content: '', theme: 'purple' });
+          e.preventDefault()
+          console.log(notes)
+          addNotes(notes)
+          setNotes({ title: '', content: '', theme: 'purple' })
         }}
       >
         <label htmlFor="title"></label>
@@ -97,7 +97,7 @@ function CreateNote({ addNotes }) {
         </div>
       </form>
     </section>
-  );
+  )
 }
 
-export default CreateNote;
+export default CreateNote
